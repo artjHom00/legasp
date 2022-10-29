@@ -1,32 +1,63 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <nav-menu :pages="pages"></nav-menu>
+    <router-view class="wrapper"></router-view>
+    <footer-bar></footer-bar>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import NavMenu from './components/Nav.vue'
+import FooterBar from './components/Footer.vue'
 
-nav {
-  padding: 30px;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: 'app',
+  components: {
+    NavMenu,
+    FooterBar
+    
+  },
+  data() {
+    return {  
     }
+  },
+  created() {
+    this.$router.options.routes.forEach((page) => {
+      this.pages.push(page.name)
+    })
   }
 }
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap');
+  @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css');
+
+  * {
+    font-family: 'Rubik', sans-serif;
+  }
+  .wrapper {
+    margin: 0 60px;
+    margin-top: 120px;
+  }
+  input {
+    border-radius: 5px;
+    border: 1px solid #eaeaea;
+    transition: 0.2s border ease-in-out;
+    padding: 10px 20px;
+    min-width: 300px;
+    height: 50px;
+  }
+  input:focus {
+    border: 1px solid #282828;
+    outline: none;
+  }
+  button {
+    height: 50px;
+    background: #282828;
+    color: white;
+    padding: 0 20px;
+    border: none;
+  }
 </style>
